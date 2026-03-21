@@ -1,7 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Pessoa
 
 def wizards(request):
-    return HttpResponse("Hello World!")
+    pessoas = Pessoa.objects.all().values()
+   
+    contexto = {
+        'meus_wizards': pessoas, 
+    }
+
+    return render(request, 'form.html', contexto)
 
 # Create your views here.
