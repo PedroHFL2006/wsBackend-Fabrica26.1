@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Personagem de Harry Potter</h1>
+
+    {% if erro_api %}
+        <p style="color: red">Não foi possível carregar os dados da API no momento.</p>
+    {% else %}
+        <ul>
+            {% for p in personagens %}
+                <li>
+                    <strong>{{ p.name }}</strong> - Casa: {{ p.house|default:"Sem Casa" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{% url 'wizards' %}">Voltar para Grimoire</a>
+    
+</body>
+</html>
