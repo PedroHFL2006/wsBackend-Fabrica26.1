@@ -10,13 +10,15 @@
 
     <ul>
         {% for pessoa in meus_wizards %}
-        <l1>
+        <li>
             <strong>Nome:</strong> {{ pessoa.nome }}<br>
             <strong>E-mail:</strong> {{ pessoa.email }}<br>
             <strong>Telefone:</strong> {{ pessoa.telefone }}<p>
-        </l1>
+        </li>
     {% endfor %}
     </ul>
+    <a href="{% url 'cadastrar_pessoa' %}">Cadastrar Pessoa</a>
+    <hr>
     
     
 </body>
