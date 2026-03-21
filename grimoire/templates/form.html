@@ -12,6 +12,8 @@
         {% for pessoa in meus_wizards %}
         <li>
             <strong>Nome:</strong> {{ pessoa.nome }}
+            ({{ pessoa.casa.nome|default:"Sem Casa" }})
+
             <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a><br>
             <strong>E-mail:</strong> {{ pessoa.email }}<br>
             <strong>Telefone:</strong> {{ pessoa.telefone }}<br>
@@ -19,12 +21,18 @@
                 onclick="return confirm('tem certeza que deseja deletar {{pessoa.nome}}?')">
                 [Deletar] 
             </a><p>
-
         </li>
-    {% endfor %}
+        {% empty %}
+            <li>Nenhum membro cadastrado</li>
+        {% endfor %}
     </ul>
-    <a href="{% url 'cadastrar_pessoa' %}">Cadastrar Pessoa</a>
-    <hr>
+<a href="{% url 'cadastrar_pessoa' %}">
+    <button type="button" style="padding: 10px; cursor: pointer;">
+        + Adicionar Novo Membro
+    </button>
+</a><br>
+    <a href="{% url 'lista_hp' %}">Ver Personagem Oficiais (API)</a>
+
     
     
 </body>

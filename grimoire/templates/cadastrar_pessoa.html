@@ -21,6 +21,14 @@
         <label>Telefone:</label><br>
         <input type="text" name="telefone" required><br><br>
 
+        <label>Casa de Hogwarts:</label><br>
+        <select name="casa" required>
+            <option value="" disabled selected>Selecione uma Casa</option>
+            {% for casa in casas %}
+                <option value="{{ casa.id }}">{{ casa.nome }}</option>
+            {% endfor %}
+        </select><br><br>
+
         <button type="submit">Salvar Pessoa</button>
     </form>
     <br>
