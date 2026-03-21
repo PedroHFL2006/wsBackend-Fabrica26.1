@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Lista de Membros</h1>
+
+    <ul>
+        {% for pessoa in meus_wizards %}
+        <li>
+            <strong>Nome:</strong> {{ pessoa.nome }}<br>
+            <strong>E-mail:</strong> {{ pessoa.email }}<br>
+            <strong>Telefone:</strong> {{ pessoa.telefone }}<p>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'cadastrar_pessoa' %}">Cadastrar Pessoa</a>
+    <hr>
+    
+    
+</body>
+</html>
