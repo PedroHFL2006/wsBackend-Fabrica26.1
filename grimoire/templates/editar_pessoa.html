@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Editar Cadastro</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Nome:</label><br>
+        <input type="text" name="nome" value="{{ pessoa.nome }}"><br>
+    
+        <label>Idade:</label><br>
+        <input type="number" name="idade" value="{{ pessoa.idade}}"><br>
+    
+        <label>E-mail:</label><br>
+        <input type="email" name="email" value="{{ pessoa.email}}"><br>
+    
+        <label>Telefone:</label><br>
+        <input type="text" name="telefone" value="{{ pessoa.telefone}}"><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    <br>
+    <a href="{% url 'wizards' %}">Cancelar</a>
+    
+</body>
+</html>

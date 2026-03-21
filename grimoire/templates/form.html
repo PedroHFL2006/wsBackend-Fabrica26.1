@@ -11,9 +11,15 @@
     <ul>
         {% for pessoa in meus_wizards %}
         <li>
-            <strong>Nome:</strong> {{ pessoa.nome }}<br>
+            <strong>Nome:</strong> {{ pessoa.nome }}
+            <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a><br>
             <strong>E-mail:</strong> {{ pessoa.email }}<br>
-            <strong>Telefone:</strong> {{ pessoa.telefone }}<p>
+            <strong>Telefone:</strong> {{ pessoa.telefone }}<br>
+            <a href="{% url 'deletar_pessoa' pessoa.id %}"
+                onclick="return confirm('tem certeza que deseja deletar {{pessoa.nome}}?')">
+                [Deletar] 
+            </a><p>
+
         </li>
     {% endfor %}
     </ul>
