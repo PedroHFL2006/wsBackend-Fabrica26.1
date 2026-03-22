@@ -1,39 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Lista de Membros</h1>
+{% extends 'base.html' %}
 
-    <ul>
-        {% for pessoa in meus_wizards %}
-        <li>
-            <strong>Nome:</strong> {{ pessoa.nome }}
-            ({{ pessoa.casa.nome|default:"Sem Casa" }})
+{% block title %}Lista de Membros{% endblock %}
 
-            <a href="{% url 'editar_pessoa' pessoa.id %}">Editar</a><br>
-            <strong>E-mail:</strong> {{ pessoa.email }}<br>
-            <strong>Telefone:</strong> {{ pessoa.telefone }}<br>
-            <a href="{% url 'deletar_pessoa' pessoa.id %}"
-                onclick="return confirm('tem certeza que deseja deletar {{pessoa.nome}}?')">
-                [Deletar] 
-            </a><p>
-        </li>
-        {% empty %}
-            <li>Nenhum membro cadastrado</li>
-        {% endfor %}
-    </ul>
-<a href="{% url 'cadastrar_pessoa' %}">
-    <button type="button" style="padding: 10px; cursor: pointer;">
-        + Adicionar Novo Membro
-    </button>
-</a><br>
-    <a href="{% url 'lista_hp' %}">Ver Personagem Oficiais (API)</a>
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2 fw-bold text-dark">🧙‍♂️ Grimoire: Lista de Membros</h1>
+    <a href="{% url 'cadastrar_pessoa' %}" class="btn btn-primary btn-lg fw-bold border-dark shadow">
+        [✚ Novo Membro]
+    </a>
+</div><br>
 
-    
-    
-</body>
-</html>
+<div class="table-responsive shadow-lg rounded">
+    <table border="3" class="table table-sm table-striped table-hover border-dark align-middle mb-0 bg-white">
+        <thead class="table-dark">
+            <tr class="text-center">
+                <th class="border-dark py-3" style="width: 25%;">Membro & Casa</th>
+                <th class="border-dark py-3" style="width: 55%;">Informações de Contato</th>
+                <th class="border-dark py-3" style="width: 20%;">Ações Sugeridas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pessoa in meus_wizards %}
+                <tr>
+                    <td class="border-dark p-3">
+                        <h3 class="fw-bold mb-1 text-dark">{{ pessoa.nome }}</h3>
+                        <span class="badge rounded-pill bg-primary border border-dark shadow-sm">
+                            🏰 {{ pessoa.casa.nome|default:"Sem Casa" }}
+                        </span>
+                    </td>
+                    <td class="border-dark p-3">
+                        <div class="d-flex flex-column">
+                            <span class="mb-1"><strong>📧 E-mail:</strong> {{ pessoa.email }}</span>
+                            <span><strong>📱 Tel:</strong> {{ pessoa.telefone }}</span>
+                        </div>
+                    </td>
+                    <td class="border-dark p-1">
+                        <div class="d-flex flex-column align-items-center gap-1"> 
+                            <a href="{% url 'editar_pessoa' pessoa.id %}" 
+                                class="btn btn-warning btn-sm fw-bold border-dark py-0 shadow-sm w-100" 
+                                style="font-size: 0.75rem; max-width: 90px;">
+                                [ 📝 EDITAR ]
+                            </a>
+
+                            <a href="{% url 'deletar_pessoa' pessoa.id %}" 
+                                class="btn btn-danger btn-sm fw-bold border-dark py-0 shadow-sm w-100" 
+                                style="font-size: 0.75rem; max-width: 90px;"
+                                onclick="return confirm('Tem certeza que deseja remover?')">
+                                [ ✖ DELETAR ]
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-5 border-dark bg-light text-muted fw-bold">
+                        🔮 O Grimoire está vazio. Comece a sua jornada cadastrando um feiticeiro!
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="mt-4">
+    <a href="{% url 'lista_hp' %}" class="btn btn-outline-dark fw-bold border-dark shadow-sm bg-white">
+        [📜 Consultar API Oficial de Personagens]
+    </a>
+</div>
+{% endblock %}

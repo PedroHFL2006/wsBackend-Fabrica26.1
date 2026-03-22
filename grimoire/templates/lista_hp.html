@@ -1,26 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Personagem de Harry Potter</h1>
+{% extends 'base.html' %}
+
+{% block title %}Personagens Oficiais - HP{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 fw-bold text-dark">📜 Personagens de Harry Potter</h1>
+        <a href="{% url 'wizards' %}" class="btn btn-dark fw-bold border-dark shadow-sm">
+            [← Voltar ao Grimoire]
+        </a>
+    </div><br>
 
     {% if erro_api %}
-        <p style="color: red">Não foi possível carregar os dados da API no momento.</p>
+        <div class="alert alert-danger border-dark shadow-sm">
+            <strong>Erro na Magia:</strong> Não foi possível carregar os dados da API no momento.
+        </div>
     {% else %}
-        <ul>
-            {% for p in personagens %}
-                <li>
-                    <strong>{{ p.name }}</strong> - Casa: {{ p.house|default:"Sem Casa" }}
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="table-responsive shadow-lg rounded">
+            <table border="3" class="table table-striped table-hover border-dark align-middle mb-0 bg-white">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th class="border-dark py-3">Nome do Personagem</th>
+                        <th class="border-dark py-3">Casa de Hogwarts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in personagens %}
+                        <tr>
+                            <td class="border-dark p-3 fw-bold text-dark">
+                                🪄 {{ p.name }}
+                            </td>
+                            <td class="border-dark p-3 text-center">
+                                {% if p.house %}
+                                    <span class="badge rounded-pill bg-primary border border-dark shadow-sm px-3 py-2">
+                                        🏰 {{ p.house }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill bg-secondary border border-dark shadow-sm px-3 py-2">
+                                        Sem Casa
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 
-    <a href="{% url 'wizards' %}">Voltar para Grimoire</a>
-    
-</body>
-</html>
+    <div class="mt-4 text-center">
+        <p class="text-muted small">Dados obtidos via API oficial de Harry Potter</p>
+    </div>
+{% endblock %}

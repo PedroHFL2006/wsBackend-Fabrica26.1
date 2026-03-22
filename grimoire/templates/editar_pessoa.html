@@ -1,30 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Editar Cadastro</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <label>Nome:</label><br>
-        <input type="text" name="nome" value="{{ pessoa.nome }}"><br>
-    
-        <label>Idade:</label><br>
-        <input type="number" name="idade" value="{{ pessoa.idade}}"><br>
-    
-        <label>E-mail:</label><br>
-        <input type="email" name="email" value="{{ pessoa.email}}"><br>
-    
-        <label>Telefone:</label><br>
-        <input type="text" name="telefone" value="{{ pessoa.telefone}}"><br><br>
+{% extends 'base.html' %}
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
-    <br>
-    <a href="{% url 'wizards' %}">Cancelar</a>
-    
-</body>
-</html>
+{% block title %}Editar Cadastro{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-5">
+        <div class="card shadow-lg border border-dark border-3 rounded p-4 w-100" style="max-width: 600px;">
+            
+            <h1 class="h3 mb-4 text-center text-dark fw-bold">🧙‍♂️ Editar Membro</h1>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="row mb-3 align-items-center">
+                    <label class="col-sm-3 col-form-label fw-bold text-sm-end text-dark">Nome:</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="nome" value="{{ pessoa.nome }}" class="form-control border-dark shadow-sm" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label class="col-sm-3 col-form-label fw-bold text-sm-end text-dark">Idade:</label>
+                    <div class="col-sm-9">
+                        <input type="number" name="idade" value="{{ pessoa.idade }}" class="form-control border-dark shadow-sm" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label class="col-sm-3 col-form-label fw-bold text-sm-end text-dark">E-mail:</label>
+                    <div class="col-sm-9">
+                        <input type="email" name="email" value="{{ pessoa.email }}" class="form-control border-dark shadow-sm" required>
+                    </div>
+                </div>
+
+                <div class="row mb-4 align-items-center">
+                    <label class="col-sm-3 col-form-label fw-bold text-sm-end text-dark">Tel:</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="telefone" value="{{ pessoa.telefone }}" class="form-control border-dark shadow-sm" required>
+                    </div>
+                </div><br>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg w-100 fw-bold border-dark shadow mb-2 text-uppercase">
+                        ⚡ Salvar Alterações
+                    </button><p>
+                    
+                    <a href="{% url 'wizards' %}" class="btn btn-link text-muted text-decoration-none">
+                        [← Cancelar e Voltar]
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

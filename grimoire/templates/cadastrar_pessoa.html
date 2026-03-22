@@ -1,37 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Novo Cadastro</h1>
-    <form action="{% url 'wizards' %}" method="POST">
-        {% csrf_token %}
-        <label>Nome:</label><br>
-        <input type="text" name="nome" required><br>
-    
-        <label>Idade:</label><br>
-        <input type="number" name="idade" required><br>
-    
-        <label>E-mail:</label><br>
-        <input type="email" name="email" required><br>
-    
-        <label>Telefone:</label><br>
-        <input type="text" name="telefone" required><br><br>
+{% extends 'base.html' %}
 
-        <label>Casa de Hogwarts:</label><br>
-        <select name="casa" required>
-            <option value="" disabled selected>Selecione uma Casa</option>
-            {% for casa in casas %}
-                <option value="{{ casa.id }}">{{ casa.nome }}</option>
-            {% endfor %}
-        </select><br><br>
+{% block title %}Novo Cadastro{% endblock %}
 
-        <button type="submit">Salvar Pessoa</button>
-    </form>
-    <br>
-    <a href="{% url 'wizards' %}">Voltar para lista</a>
-</body>
-</html>
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div class="card shadow-lg border border-dark border-3 rounded p-4 w-100" style="max-width: 600px;">
+            
+            <h1 class="h3 mb-4 text-center">Inscrição no Grimoire</h1>
+            
+            <form action="{% url 'wizards' %}" method="POST">
+                {% csrf_token %}
+                
+                <div class="row mb-3 align-items-center">
+                    <label for="id_nome" class="col-sm-3 col-form-label fw-bold text-sm-end border-dark p-2">Nome:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="id_nome" name="nome" class="form-control border-dark" placeholder="Harry Potter" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label for="id_idade" class="col-sm-3 col-form-label fw-bold text-sm-end border-dark p-2">Idade:</label>
+                    <div class="col-sm-9">
+                        <input type="number" id="id_idade" name="idade" class="form-control border-dark" placeholder="11" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label for="id_email" class="col-sm-3 col-form-label fw-bold text-sm-end border-dark p-2">E-mail:</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="id_email" name="email" class="form-control border-dark" placeholder="harry.p@hogwarts.ac" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label for="id_telefone" class="col-sm-3 col-form-label fw-bold text-sm-end border-dark p-2">Tel:</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="id_telefone" name="telefone" class="form-control border-dark" placeholder="9 9999-9999" required>
+                    </div>
+                </div>
+
+                <div class="row mb-4 align-items-center">
+                    <label for="id_casa" class="col-sm-3 col-form-label fw-bold text-sm-end border-dark p-2">Casa:</label>
+                    <div class="col-sm-9">
+                        <select id="id_casa" name="casa" class="form-select border-dark" required>
+                            <option value="" disabled selected>Selecione uma Casa</option>
+                            {% for casa in casas %}
+                                <option value="{{ casa.id }}">{{ casa.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3"><BR>
+                    <button type="submit" class="btn btn-success btn-lg w-100 fw-bold border-dark shadow">
+                        ⚡ Salvar Registro
+                    </button><br><br>
+                    <a href="{% url 'wizards' %}" class="btn btn-link">
+                        [← Voltar para lista]
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
